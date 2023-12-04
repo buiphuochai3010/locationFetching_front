@@ -38,16 +38,14 @@ public class socketHandle {
         outStream.flush();
     }
 
-    public static String receiveData() throws JSONException, IOException {
+    public static JSONObject receiveData() throws JSONException, IOException {
         String res = inStream.readLine();
         System.out.println("[Client] Cipher response: " + res);
         res = aes.decrypt(res);
         if (!res.isBlank()) {
             //Decrypt response
             JSONObject obj = new JSONObject(res);
-            System.out.println("[Client] Decrypted response:");
-            System.out.println(obj.toString(1));
-            return obj.toString();
+            return obj;
         } else {
             return null;
         }
